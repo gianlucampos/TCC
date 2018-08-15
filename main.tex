@@ -149,12 +149,6 @@ Esta questão pode ser melhorada, caso todo o processo fosse automatizado comput
 Os softwares existentes, utilizam o docking para este processo de avaliação, porém, possuem um precisão de acertos imprecisos ao lidar com grandes volumes de dados para serem avaliados. 
 Para que possa ser melhorada a precisão desses softwares, deve ser feito uma otimização na função de avaliação usado nestes sofwares e treina-la com deep learing, para que assim o processo de docking esteja trabalhando com melhores resultados. 
 \end{comment}
-
-% * <mertins@gmail.com> 2018-06-25T12:23:25.301Z:
-% 
-% Resumo deve ser escrito todo em um único paragrafo.  Deixa tudo num paragrafo. Tenta mudar Este processo é feito.... para algo diferente. Não parece conectar bem com a frase.
-% 
-% ^ <mertins@gmail.com> 2018-07-03T12:06:42.935Z.
 \begin{abstract}
 O processo de desenvolvimento de drogas medicinais é demorado,custoso e em grande parte manual.
 Para melhorar e condicionar uma droga a um efeito desejado, utiliza-se uma técnica chamada Docking Molecular, que consiste em realizar atracamento de células e substâncias,onde o seu resultado demonstra o quão bem ligadas suas estruturas estão.Este processo é feito em grande parte por softwares, que exibem a melhor opção e combinações no design das células, ainda que estejam bem limitados em sua capacidade de predizer seus resultados.Uma possível solução seria utilizar Redes Neurais para otimizar este processo e diminuir o número de informações necessárias passadas para avaliação.
@@ -190,59 +184,6 @@ A possible solution would be to use Neural Networks to optimize this process and
 \tableofcontents
 
 \chapter{Introdução}
-\begin{comment}
-
-O processo de desenvolvimento de fármacos é muitas vezes algo custoso financeiramente, que demanda muito tempo, recursos para serem realizados e em muitas vezes é feito por uma pessoa de forma manual. 
-
-Esta questão foi melhorada ao longo dos anos, ao  ser realizado todo o processo computacionalmente, mais especificamente tendo, um software que examine a estrutura de uma célula ligante e também faça a comparação entre suas similaridades com outra célula, esta sendo a receptora, afim de ter um mapeamento de moléculas  que definem de ambas estruturas das  duas células.
-% * <mertins@gmail.com> 2018-06-25T12:39:47.448Z:
-% 
-% Confuso este paragrafo
-% 
-% ^.
-
-Conforme diz \cite{lybrand1995ligand}; 
-"Conhecendo-se a estrutura 3D de uma proteína, uma análise
-computacional pode apontar prováveis regiões de ligação. Com isso é possível determinar um conjunto de candidatos (compostos líderes) que possa ligar-se a essa região da proteína alvo. " 
-
-
-% * <mertins@gmail.com> 2018-06-25T12:41:20.289Z:
-% 
-% Tem certeza que esta citação esta correta?
-% 
-% ^.
-
-Seu principal objetivo é analisar e prever a melhor conformidade entre duas estruturas celulares.Ao aplicar o docking é possível descobrir a afinidade de ligação que estas duas moléculas possuem.
-% * <mertins@gmail.com> 2018-06-25T13:04:01.418Z:
-% 
-% Seu? Quem? 
-% A palavra objetivo leva a entender que é o objetivo do trabalho.
-% 
-% ^.
-
-Sendo uma molécula considerada ligante e outra receptora,  quanto maior a afinidade  e conformidade ao realizarem uma união estiverem, melhor o encaixe entre duas moléculas.
-% * <mertins@gmail.com> 2018-06-25T13:05:33.538Z:
-% 
-% Concordancia na frase não esta legal
-% 
-% ^.
-Assim é feito com todas as moléculas de uma estrutura celular. 
-% * <mertins@gmail.com> 2018-06-25T13:06:15.791Z:
-% 
-% Este ultimo periodo  não fez sentido para mim. O que queres dizer?
-% 
-% 
-% ^.
-
-Com isso foi possível ser estudado o comportamento de diversas estruturas celulares ao longo dos anos na área de biomedicina.
-Todo o processo de comparação, mapeamento de estrutura e união de moléculas é chamado de Docking Molecular, também chamada de atracamento, acoplamento ou até ancoragem, e tem como objetivo  prever o melhor encaixe entre duas moléculas de diferentes células.
-% * <mertins@gmail.com> 2018-06-25T13:08:06.736Z:
-%
-% * <mertins@gmail.com> 2018-06-25T13:11:57.459Z:
-% Tenho o sentimento que esta informação do que é docking molecular deveria ter sido introduzido antes. 
-% ^.
-\end{comment}
-
 Ao ser desenvolvida uma nova droga é necessário estudar as propriedades químicas e analisar a estrutura das moléculas, o processo de desenvolvimento é bem custoso, pois leva tempo para poder realizar testes e avaliar resultados,que são feitos em vitro e examinados em laboratório sendo em grande parte manual e dependente de um ser humano.%\textbf{REF}%CITAR REFERENCIA DE COMO É FEITO DOCKING MANUALMENTE
 
 Por consequência disso é comum que seja utilizado softwares que analizam estruturas celulares e aplicam a técnicas específicas da área de biomedicina, sendo uma delas o docking molecular, que ajuda a simular o comportamento entre duas estruturas ao se juntarem.
@@ -266,27 +207,6 @@ Com a evolução da área computacional, novos estudos são feitos para obter da
 
 
 \section{Objetivo do trabalho}
-
-\begin{comment}
-É de conhecimento geral que a tecnologia evoluiu muito nos ultimos anos, em razão disso os softwares utilizados para docking de hoje em dia tem maior capacidade para processamento que os mais antigos, consequentemente os programas mais novos acabam tendo maior riquezas de detalhes ao explorar a estrutura celular, sendo visualizada em forma 3d. 
-% * <mertins@gmail.com> 2018-06-25T13:13:41.466Z:
-% 
-% Tu já introduziu docking molecular. Agora não deve fazer novamente.
-% 
-% ^.
-
-A evolução destes softwares permitiu que fosse aumentada a precisão em estimar os pontos de união, essa estimativa de resultados é gerada através de uma função de avaliação que utiliza diversos tipos de algoritmos para efetuar o cálculo, que vai desde algoritmos genéticos a MonteCarlo, Lamarca e outros.
-
-Ainda que a evolução no estudo de docking foi consideravelmente melhorada graças a evoluções nas funções de avaliações de softwares, existem alguns casos que ainda não são tão precisos em avaliação, como por exemplo, validar estruturas muito grandes 
-desconhecidas, novas ou mais complexas, que podem envolver mutações de substâncias celulares, isso acaba sendo um desafio para ser estudado futuramente.
-
-Ao aplicar Redes Neurais Profundas (deep learning) em uma função de avaliação, pode ocorrer uma melhora, visto que ao ser separado todas etapas do docking, fazer avaliação em partes e treinar as redes para que classifiquem e predigam o resultado.
-Desta maneira pode ser minimizado o esforço e aumentada a precisão. 
-% * <mertins@gmail.com> 2018-06-25T13:19:01.725Z:
-% Isto precisa ser melhor explicado.
-% ^.
-\end{comment}
-
 Tendo em vista que o processo de desenvolvimento de fármacos é custoso, demorado e geralmente necessita de monitoramento, é necessário utilizar algum software que utilize a técnica de docking molecular para automatizar o processo.
 
 O problema é que nem sempre os resultados gerados pela avaliação dos softwares são rápidos e precisos, essencialmente ao avaliar grandes volumes de dados.
@@ -298,31 +218,16 @@ Dividindo as etapas do docking em processos menores, ajudando a processar um vol
 
 
 \section{Organização do texto}
-
-\begin{comment}
-O texto falará contará brevemente sobre a importância do docking molecular para poder estudar o comportamento das estruturas celulares, de como é importante para tanto para desenvolvimento de drogas e medicamentos quanto para o estudo de substâncias nocivas, vírus e seu comportamento com o corpo humano. Será mostrado exemplos de softwares que obtiveram sucesso ao aplicar esta técnica e qual abordagem é mais eficaz dependendo da aplicação. 
-% * <mertins@gmail.com> 2018-06-25T13:20:19.789Z:
-% falara/contará não fica bem. Pode ser mais direto, baseado no que será descrito em cada capitulo.
-% ^.
-\end{comment}
 Neste trabalho foram dividivos da seguinte forma.
 O Capítulo 2 abrange o referencial teórico sobre o qual será desenvolvido o trabalho de conclusão de curso, em específico, falará sobre a definição do que seria o docking, como é realizado o processo de docking, o contexto de onde está inserido, da mesma forma será feito ao falar sobre a Deep Learning.
 
 No Capítulo 3, é apresentado como será realizado o estudo e otimização na avaliação do docking molecular ao aplicar Deep Learning, contendo uma descrição dos componentes necessários para fazê-la.
 
 \chapter{Fundamentação Teórica}
-
 Este capítulo faz uma breve revisão teórica sobre os assuntos necessários para a entender o processo de docking molecular  e deep learning.
 
 \section{Docking Molecular}
-
 No final da década de 1980, surgiram os primeiros softwares que realizavam o processo de docking molecular, possibilitando desta forma trazer uma visão mais detalhada das estruturas. Com isso foi possível manipular as moléculas e otimizar as células com mais facilidade e simular com maior precisão, permitindo mais rapidez ao realizar testes virtuais.
-% * <mertins@gmail.com> 2018-06-25T13:22:40.526Z:
-% 
-% permitindo assim poder ter uma visão...  nao esta bom.
-% Senti falta de um entendimento melhor sobre o que é  docking molecular na introdução, para aqui já sair compreendendo.
-% 
-% ^.
 
 Para realizar o docking, é necessário realizar o mapeamento das proteínas que irão se ligar, isso serve para prever os melhores pontos para que as moléculas se liguem, e conhecendo assim o ponto com melhor conformidade e energia que será gasta para a união. Isto pode ser visto na figura 1, onde mostra duas protéinas realizando  docking e consequentemente gerando inúmeros pontos de conformidade.
 
@@ -334,12 +239,6 @@ Para realizar o docking, é necessário realizar o mapeamento das proteínas que
 	\end{figure}
     
 Tendo como objetivo analisar e prever a melhor conformidade entre duas estruturas celulares, conhecendo toda a região das moléculas das proteínas, ao aplicar o docking é possível descobrir a afinidade de ligação que estas duas moléculas possuem entre si, sendo assim estimando o melhor encaixe.
-% * <mertins@gmail.com> 2018-06-25T13:25:13.708Z:
-% 
-% saber todas..
-% 
-% ^.
-
 Ao ocorrer uma ligação, será liberado uma certa quantidade de energia, esta energia é importante para medir a conformidade da união entre duas moléculas (ligante e receptora).
 Para realizar a medição, é utilizado funções de avaliação (score functions), focadas na minimização energética, que  segundo \cite{kitchen2004docking} e \cite{lybrand1995ligand}, chegaram a conclusão de que, quanto menor a energia gasta entre duas moléculas, melhor será sua a conformidade na união. 
 
@@ -350,22 +249,6 @@ Esses exemplos são triviais para o estudo do comportamento das composições qu
 Em geral é a técnica de docking molecular é utilizada para desenvolver estruturas de células diversas; vírus de doenças, medicamentos,dna e tudo que envolva fármacos. 
 
 Muitos softwares já obtiveram resultados positivos ao utilizar docking, conforme mostrado na tabela 1 abaixo, onde é listado exemplos destes softwares.
-% * <mertins@gmail.com> 2018-06-25T13:32:54.626Z:
-% 
-% O que é em Geral? Não deveria estar no plural? Sitação não parece ok
-% 
-% Melhor tu reconstruir a tabela, com os textos em portugues. Dai deixa de ser figura e passa a ser tabela. Mantem na explicação da tabela que trata-se de informações obtidas do sliwoski
-% 
-% ^.
-\begin{comment}
-      \begin{figure}[!htb]
-	\centering\includegraphics[width=10cm]{imagens/sucess_docking.png}
-	\caption{Descobertas utilizando softwares de docking}
-    \cite{sliwoski2014computational} 
-	\end{figure}
-\end{comment}
-
-
 \begin{table}[h]
 \centering
 \caption{Softwares bem sucedidos ao utilizar docking molecular \cite{sliwoski2014computational} }
@@ -383,28 +266,12 @@ Dock     & Imunofilina F506       & Inibidor de calcineurina \\ \bottomrule
 \end{table}
 
 Para \cite{rodrigues2012estrategias}, o objetivo principal que se tem ao aplicar docking é; aprimorar o processo de busca de novos candidatos a fármacos e acelerar o processo contínuo do seu planejamento. 
-% * <mertins@gmail.com> 2018-06-25T13:35:00.655Z:
-% 
-% citação precisa ser revisada.
-% 
-% ^.
-% * <mertins@gmail.com> 2018-06-25T13:35:56.068Z:
-% 
-% Rever texto. ... e qual o objetivo .... e qual abordagem....  Acho que um dos e é virgula
-% 
-% ^.
 Todos os fatores como as propriedades químicas das moléculas auxiliam a compreender de qual maneira se comportará as células, quais os tipos de ligação que podem ser utilizados como; proteína-ligando, proteína-dna, proteína-proteína. Isso pode influenciar na abordagem de docking e afetar o desempenho nos softwares utilizados, ao serem aplicadas funções de pontuação.
 
 Quanto a abordagem, existem duas formas diferentes de realizar o docking, que pode ser classificado como Docking Rígido e Docking Flexível.
 
 No docking rígido os pontos de união de uma molécula ligante e receptora são mais limitados, isso se deve ao fato de existir uma menor liberdade em manipular as moléculas de uma célula, ou seja, a molécula ligante será rígida assim como o receptor. Consequentemente isso acaba resultando em maiores pontos a serem estimados para realizar a união de uma forma compatível. \\
 Isso pode aumentar a precisão de acertos, já que existe vários pontos a serem avaliados e qual deles terá menor energia para realizar o acoplamento \cite{pagadala2017software}. 
-% * <mertins@gmail.com> 2018-06-25T13:37:30.625Z:
-% 
-% Parece ser necessário detalhar e explicar mais  a questão da abordagem e do processo rigido. Mesma coisa para o paragrafo abaixo relativo ao flexivel
-% 
-% ^.
-
 Já no Docking Flexível, a molécula ligante pode ser manipulada com total liberdade ao tentar se acoplar no receptor,  este que continuará sendo rígido. O número de pontos a ser estimado será menor por ser ajustado a mólecula ligante ao receptor rígido.
 Geralmente é utilizado esta abordagem após ser feito o docking rígido, orientado o melhor resultado estimado anteriormente para que desta forma tenha-se uma boa conformidade, isto é ilustrado na figura 2.
 
@@ -441,12 +308,6 @@ Esta revisão tem como objetivo se aprofundar nos temas que envolvem todo o proc
 A parte de aplicações refere-se ao uso de docking e para o que é útil,  em especial o que seria necessário para desenvolver algum fármaco.
 
 O processo de realizar docking através de softwares ajuda a entender como ocorre o funcionamento desta técnica, com isso é possível saber ter uma estimativa de quais são os requisitos e resultados esperados que serão avaliados computacionalmente.
-% * <mertins@gmail.com> 2018-06-25T13:39:47.579Z:
-% 
-% Não  entendi
-% 
-% ^.
-
 Após ser estudado o docking será realizado pesquisa a respeito da área de aprendizado de máquina, buscando especificamente o conhecimento da técnica de Redes Neurais Profundas que aborda temas como o a classificação das estruturas de proteínas bem como a predição dos melhores pontos estimados do docking.
 
 Também deverá ser feito um levantamento das ferramentas de quais ferramentas (softwares) são utilizados e quais foram as otimizações das funções de avaliação que tiveram ao longo dos anos e quais os benchmarks.
