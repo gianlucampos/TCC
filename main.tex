@@ -1,6 +1,5 @@
 \documentclass[tcc, capa]{texucpel}
 
-%\usepackage[latin1]{inputenc} % acentuacao
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{verbatim}
@@ -18,14 +17,6 @@
 \usepackage{nameref}
 \usepackage{verbatim}
  \usepackage{float}
-%\usepackage[tocindentauto]{tocstyle} % tentando fazer o apêndice funcionar
-
-%\usepackage{color, soulutf8} % Revisão
-
-
-%\usepackage{xcolor}
-%\definecolor{text-gray}{gray}{0.08}
-
 \usepackage{siunitx}
 
 \sisetup{
@@ -56,17 +47,16 @@
 \newcommand{\minimo}{\(\textrm{\gambi{} Mínimo (\si{\volt})}\)}
 \newcommand{\erromed}{\(\textrm{\gambi{} Erro médio}\)}
 \newcommand{\erromax}{\(\textrm{\gambi{} Erro máximo}\)}
-%\(\textrm{\fontfamily{phv}\fontshape{n}\selectfont Média (\si{\volt})}\)
 
 \unidade{Centro de Ciências Sociais e Tecnológicas}
 \curso{Engenharia de Computação}
 \nomecurso{Engenharia de Computação}
 \titulocurso{Engenheiro de Computação.}
 
-\title{Otimizando função de avaliação de docking molecular com uso de Redes Neurais}
+\title{Otimizando função de pontuação de docking molecular com uso de Florestas Aleatórias}
 
 \author{de Campos}{Gianluca}
-%vspace{1.2cm}
+\vspace{1.2cm}
 
 \advisor [Prof. Me.]{Mertins}{Luciano Edson}
 %\coadvisor [Prof.]{Sobrenome}{Nome}
@@ -77,70 +67,31 @@
 
 \begin{document}
 
-%\color{text-gray}
-
 \renewcommand{\advisorname}
-{Orientador}           %descomente caso tenhas orientador
-\renewcommand{\coadvisorname}{Coorientador}      %descomente caso tenhas coorientadora
+{Orientador}          
+%\renewcommand{\coadvisorname}{Coorientador}      %descomente caso tenhas coorientadora
 \maketitle 
-
 \sloppy
-
 %\fichacatalografica
-
 %\folhadeaprovacao
-
 %Opcional
 %\begin{dedicatoria}
 %\end{dedicatoria}
 
 %Opcional
-%\begin{agradecimentos}
-%\Agradecimentos:
-
-%\vspace{\baselineskip}
-
-
-%\end{agradecimentos}
+\begin{agradecimentos}
+\textbf{Agradecimentos} \\
+Em primeiro lugar gostaria de agradecer ao apoio de meus familiares por ser possível estar aqui estudando nesta instituição, dando o máximo de suporte possível para que eu pudesse estar aqui hoje. Agradeço também aos colegas de turma e trabalho pelo auxílio nas difíceis tarefas no estudo e também pelo monitoramento delas. Agradecimento também ao meu Orientador por se disponibilizar para me ajudar ao longo deste ano para concluir este trabalho.
+\vspace{\baselineskip}
+\end{agradecimentos}
 
 %Opcional
 
-%\begin{epigrafe}{Marilyn Manson}
- % "Sometimes I wonder if I'm a character being written, or if I'm writing myself."\\
-%\end{epigrafe}
+\begin{epigrafe}{John Lennon}
+"When I was 5 years old, my mother always told me that happiness was the key to life. When I went to school, they asked me what I wanted to be when I grew up. I wrote down ‘happy’. They told me I didn’t understand the assignment, and I told them they didn’t understand life."\\
+\end{epigrafe}
 
-%\begin{epigrafe}{Neil Peart}
-%"When the dust has cleared\\
-%And victory denied\\
-%A summit too lofty\\
-%River a little too wide\\
-%If we keep our pride -- \\
-%Though paradise is lost\\
-%We will pay the price,\\
-%But we will not count the cost"\\
-%\end{epigrafe}
-
-%\begin{epigrafe}{Trey Anastasio, Tom Marshall}
-%"But who can unlearn all the facts that I've learned\\
-%As I sat in their chairs and my synapses burned\\
-%And the torture of chalk dust collects on my tongue\\
-%Thoughts follow my vision and dance in the sun\\
-%All my vasoconstrictors they come slowly undone"\\
-%\end{epigrafe}
-
-%\begin{epigrafe}{Microchip}
-%"bit TRISC<6> must be set (= 1)"\\
-%\end{epigrafe}
-
-
-% 1. Internet das coisas
-% 2. Instrumentação virtual
-% 3. Convergência
-% 4. Proposta
-% 5. Prototipação e cenários de teste
-
-%Resumo em Portugues (no maximo 500 palavras)
-
+%Resumo em Português (no máximo 500 palavras)
 \begin{comment}
 O processo de desenvolvimento de fármacos é normalmente algo custoso financeiramente, que demanda muito tempo e recursos para serem realizados, muitas vezes é feito por uma pessoa de forma manual. 
 
@@ -158,7 +109,6 @@ Para melhorar e condicionar uma droga a um efeito desejado, utiliza-se uma técn
   {Titulo do Trabalho em Inglês}
   {Algorithm, Optimization, Evaluation}  
   
-
 The process of developing medicinal drugs is time-consuming, costly and largely manual.
 In order to improve and condition a drug to a desired effect, a technique called Docking Molecular is used, which consists of docking of cells and substances, where its result demonstrates how well bound their structures are. \\
 This process is largely done by softwares, which display the best choice and combinations in cell design, even though they are quite limited in their ability to predict their results.
@@ -193,13 +143,13 @@ Com isto é possível poupar tempo e diminuir o custo de recursos no desenvolvim
 
 Esses detalhes são importantes para aplicar o docking, pois trazem bastante informação ao realizar o estudo do comportamento entre duas estruturas celulares, que geralmente costumam ser um sequenciamento de DNA ou uma proteína.%\textbf{REF} % citar exemplo
 
-Este comportamento é util para o desenvolvimento de fármacos, podendo ajudar a estudar inibidores de um vírus por exemplo,  onde ao aplicar a técnica de docking foi possível descobrir substâncias que pudessem inibir o vírus Influenza\cite{ishikawa2011binding}.
+Este comportamento é útil para o desenvolvimento de fármacos, podendo ajudar a estudar inibidores de um vírus por exemplo,  onde ao aplicar a técnica de docking foi possível descobrir substâncias que pudessem inibir o vírus Influenza\cite{ishikawa2011binding}.
 
 A técnica de docking consiste em analisar duas estruturas de células e junta-las com a melhor conformidade de encaixe possível, sendo a partir disto, possível de analisar as propriedades em comum e estuda-las.
 
-Para poder aplicar o docking é necessário conhecer a molécula ligante, qual o receptor que seria qual estrutura ela irá se ligar (proteína ou dna). Ao conhecer as estruturas, é avaliado qual o melhor ponto em que serão encaixadas e a quantidade de energia que será liberada ao ocorrer esta ligação.
+Para poder aplicar o docking é necessário conhecer a molécula ligante, qual o receptor que seria qual estrutura ela irá se ligar (proteína ou DNA). Ao conhecer as estruturas, é avaliado qual o melhor ponto em que serão encaixadas e a quantidade de energia que será liberada ao ocorrer esta ligação.
 
-Este processo de avaliação foi calculado através diversos algoritmos ao longo dos anos como; algoritmo genético \cite{holland1975adaptation}, Simulate Annealing \cite{kirkpatrick1984optimization} ,  algoritmo genético de Lamarca \cite{morris1998automated},  MonteCarlo \cite{caflisch1992monte} entre outros que foram tiveram evoluções ao longo dos anos. 
+Este processo de avaliação foi calculado através diversos algoritmos ao longo dos anos como; algoritmo genético \cite{holland1975adaptation},  Simullate Annealing \cite{kirkpatrick1984optimization} ,  algoritmo genético de Lamarca \cite{morris1998automated},  MonteCarlo \cite{caflisch1992monte} entre outros que foram tiveram evoluções ao longo dos anos. 
 
 Dependendo do algoritmo utilizado, a precisão do resultado pode variar, assim como seu desempenho e rapidez para gera-lo.
 Com a evolução da área computacional, novos estudos são feitos para obter dados com melhor desempenho, em particular a Deep Learning tem se mostrado útil para vários estudos na área de biomedicina conforme avaliado por \cite{korotcov2017comparison,mamoshina2016applications}
@@ -213,12 +163,12 @@ O problema é que nem sempre os resultados gerados pela avaliação dos software
 
 Aproveitando a evolução de tecnologia que ocorreu tanto da área da biomedicina e computação, é possível otimizar o processo de docking utilizando técnicas de aprendizado de máquina, em especial, Redes Neurais Profundas (Deep Learning).
 
-Esta mesma classificará da melhor forma a(s) função(oes) de avaliação, ao utilizar estruturas já conhecidadas em bases de dados e realizando a comparação.
+Esta mesma classificará da melhor forma a(s) função(ões) de avaliação, ao utilizar estruturas já conhecidas em bases de dados e realizando a comparação.
 Dividindo as etapas do docking em processos menores, ajudando a processar um volume de dados maior e também a ter melhores resultados.
 
 
 \section{Organização do texto}
-Neste trabalho foram dividivos da seguinte forma.
+Neste trabalho foram divididos da seguinte forma.
 O Capítulo 2 abrange o referencial teórico sobre o qual será desenvolvido o trabalho de conclusão de curso, em específico, falará sobre a definição do que seria o docking, como é realizado o processo de docking, o contexto de onde está inserido, da mesma forma será feito ao falar sobre a Deep Learning.
 
 No Capítulo 3, é apresentado como será realizado o estudo e otimização na avaliação do docking molecular ao aplicar Deep Learning, contendo uma descrição dos componentes necessários para fazê-la.
@@ -240,13 +190,13 @@ Para realizar o docking, é necessário realizar o mapeamento das proteínas que
     
 Tendo como objetivo analisar e prever a melhor conformidade entre duas estruturas celulares, conhecendo toda a região das moléculas das proteínas, ao aplicar o docking é possível descobrir a afinidade de ligação que estas duas moléculas possuem entre si, sendo assim estimando o melhor encaixe.
 Ao ocorrer uma ligação, será liberado uma certa quantidade de energia, esta energia é importante para medir a conformidade da união entre duas moléculas (ligante e receptora).
-Para realizar a medição, é utilizado funções de avaliação (score functions), focadas na minimização energética, que  segundo \cite{kitchen2004docking} e \cite{lybrand1995ligand}, chegaram a conclusão de que, quanto menor a energia gasta entre duas moléculas, melhor será sua a conformidade na união. 
+Para realizar a medição, é utilizado funções de pontuação (score functions), focadas na minimização energética, que  segundo \cite{kitchen2004docking} e \cite{lybrand1995ligand}, chegaram a conclusão de que, quanto menor a energia gasta entre duas moléculas, melhor será sua a conformidade na união. 
 
 Dependendo da estrutura que é analisada com o docking, torna-se possível criar uma substância capaz de inibir a molécula receptora, no caso de um inibidor de vírus por exemplo. \cite{ishikawa2011binding}
 
 Com essa manipulação nas estruturas celulares, é possível destrinchar vários assuntos, pesquisas e artigos sobre os comportamentos de células e proteínas.
-Esses exemplos são triviais para o estudo do comportamento das composições químicas das células para fazer medicamentos na aréa da biomedicina. 
-Em geral é a técnica de docking molecular é utilizada para desenvolver estruturas de células diversas; vírus de doenças, medicamentos,dna e tudo que envolva fármacos. 
+Esses exemplos são triviais para o estudo do comportamento das composições químicas das células para fazer medicamentos na área da biomedicina. 
+Em geral é a técnica de docking molecular é utilizada para desenvolver estruturas de células diversas; vírus de doenças, medicamentos,DNA e tudo que envolva fármacos. 
 
 Muitos softwares já obtiveram resultados positivos ao utilizar docking, conforme mostrado na tabela 1 abaixo, onde é listado exemplos destes softwares.
 \begin{table}[h]
@@ -266,13 +216,13 @@ Dock     & Imunofilina F506       & Inibidor de calcineurina \\ \bottomrule
 \end{table}
 
 Para \cite{rodrigues2012estrategias}, o objetivo principal que se tem ao aplicar docking é; aprimorar o processo de busca de novos candidatos a fármacos e acelerar o processo contínuo do seu planejamento. 
-Todos os fatores como as propriedades químicas das moléculas auxiliam a compreender de qual maneira se comportará as células, quais os tipos de ligação que podem ser utilizados como; proteína-ligando, proteína-dna, proteína-proteína. Isso pode influenciar na abordagem de docking e afetar o desempenho nos softwares utilizados, ao serem aplicadas funções de pontuação.
+Todos os fatores como as propriedades químicas das moléculas auxiliam a compreender de qual maneira se comportará as células, quais os tipos de ligação que podem ser utilizados como; proteína-ligando, proteína-DNA, proteína-proteína. Isso pode influenciar na abordagem de docking e afetar o desempenho nos softwares utilizados, ao serem aplicadas funções de pontuação.
 
 Quanto a abordagem, existem duas formas diferentes de realizar o docking, que pode ser classificado como Docking Rígido e Docking Flexível.
 
 No docking rígido os pontos de união de uma molécula ligante e receptora são mais limitados, isso se deve ao fato de existir uma menor liberdade em manipular as moléculas de uma célula, ou seja, a molécula ligante será rígida assim como o receptor. Consequentemente isso acaba resultando em maiores pontos a serem estimados para realizar a união de uma forma compatível. \\
 Isso pode aumentar a precisão de acertos, já que existe vários pontos a serem avaliados e qual deles terá menor energia para realizar o acoplamento \cite{pagadala2017software}. 
-Já no Docking Flexível, a molécula ligante pode ser manipulada com total liberdade ao tentar se acoplar no receptor,  este que continuará sendo rígido. O número de pontos a ser estimado será menor por ser ajustado a mólecula ligante ao receptor rígido.
+Já no Docking Flexível, a molécula ligante pode ser manipulada com total liberdade ao tentar se acoplar no receptor,  este que continuará sendo rígido. O número de pontos a ser estimado será menor por ser ajustado a molécula ligante ao receptor rígido.
 Geralmente é utilizado esta abordagem após ser feito o docking rígido, orientado o melhor resultado estimado anteriormente para que desta forma tenha-se uma boa conformidade, isto é ilustrado na figura 2.
 
 
@@ -283,36 +233,95 @@ Geralmente é utilizado esta abordagem após ser feito o docking rígido, orient
 
 
 \section{Função de pontuação}
-
 O aprendizado de máquina se tornou algo bem comum ao ser aplicado em diversas áreas da computação, ao ser aplicado em software deve ser levantado os pontos que são relevantes para o processo de docking.
 
 Nos softwares de docking são utilizados algoritmos para gerar funções de avaliação para estimar o gasto energético durante a união entre moléculas, como por exemplo algoritmo genético \cite{holland1975adaptation}, Simulate Annealing \cite{kirkpatrick1984optimization} ,  algoritmo genético de Lamarca \cite{morris1998automated},  MonteCarlo \cite{caflisch1992monte}.
 
 Estes algoritmos estão constantemente sendo evoluídos e até substituídos para obterem mais eficácia ao estimar grandes volumes de dados com um desempenho melhor.
+Portanto, é possível dizer que ao melhorar a precisão desta função, é possível otimizar o processo de docking molecular consideravelmente.
 
-\section{Aprendizado de máquina }
+\section{Técnicas de Aprendizado de máquina }
+%Falar sobre deep learning, svm, florestas aleatorias algoritmo genético e todas ténicas que foram utilizadas anteriormente em softwares
+O foco será direcionado para o estudo de uma das técnicas de Inteligência Artificial na literatura, sendo uma delas redes neurais profundas, onde é possível utiliza-la para treinar os algoritmos para previsão e definição dos melhores resultados possíveis. 
 
 Começando pelo pelo básico da IA, temos o aprendizado supervisionado e não supervisionado, dentre estes são utilizados funções de classificação e agregação que são muito limitadas para serem exploradas em um volumes de dados muito grande.
-Para estudar o comportamento de uma célula é necessário fazer um mapeamento de sua estrutura para compreender suas peculiaridades e comportamentos. Tal processo é muito custuso e demorado dependendo do poder de processamento. 
-Para fazer a máquina explorar toda a estrutura das móleculas, será requerido várias  bases de dados, com volumes grandiosos de informação. 
+Para estudar o comportamento de uma célula é necessário fazer um mapeamento de sua estrutura para compreender suas peculiaridades e comportamentos. 
 
-O foco será direcionado para o estudo de uma das técnicas de Inteligência Artificial na literatura, sendo uma delas redes neurais profundas, onde é possível utiliza-la para treinar os algoritmos para previsão e definição dos melhores resultados possíveis. 
+Tal processo é muito custoso e demorado dependendo do poder de processamento. 
+Para fazer a máquina explorar toda a estrutura das moléculas, será requerido várias  bases de dados, com volumes grandiosos de informação. 
+
+Ao utilizar técnicas de IA, deve levar em consideração qual aspecto do docking deve ser melhorado. Abaixo é falado sobre alguns desses aspectos.
+% \begin{itemize}
+
+\textbf{(1)Scoring Power:} the ability to produce scores for the different binding poses; these scores are supposed to be linearly correlated with the experimentally determined binding affinities of the protein-ligand complexes of known 3D structures. 
+
+\textbf{(2) Ranking Power:}
+the ability to correctly rank a given set of ligands with known binding poses when bound to a common protein. 
+
+\textbf{(3)Docking Power:} the ability to
+identify the best binding pose of a given ligand from a set of computationally
+generated poses when bound to a specific protein,
+
+\textbf{(4)Screening Power:}
+which is the ability of a scoring function to
+identify the true binders to a given target protein among a pool of random
+molecules.
+% \end{itemize}
+
+Neste trabalho o foco será em estudar uma otimização do poder de ranqueamento de docking, avaliando quais as melhores perspectivas para um conhecido sítio de união.
+Para este caso em específico o uso de florestas aleatórias é satisfatório pois compreende um bom desempenho e blablabla \textbf{CITACAO}.
+
+As florestas aleatórias utilizam isso isso e aquilo, do qual é possível criar arquivos com n-features e recursos, para melhor compreendimento de como funcionará as florestas aleatórias, será explicado na seção de metodologia deste trabalho. 
 
 
 \chapter{Metodologia}
-
-Em primeiro momento o foco será estudar e fazer uma revisão bibliográfica a respeito do tema de Docking Molecular.
+Em primeiro momento o foco será estudar os componentes necessários para realização de docking e  fazer uma revisão bibliográfica dos recursos necessários.
 
 Esta revisão tem como objetivo se aprofundar nos temas que envolvem todo o processo de docking como onde é aplicado, qual o processo para ser executado, as ferramentas, requisitos necessários  e saber quais os resultados esperados computacionalmente.
 
 A parte de aplicações refere-se ao uso de docking e para o que é útil,  em especial o que seria necessário para desenvolver algum fármaco.
 
 O processo de realizar docking através de softwares ajuda a entender como ocorre o funcionamento desta técnica, com isso é possível saber ter uma estimativa de quais são os requisitos e resultados esperados que serão avaliados computacionalmente.
-Após ser estudado o docking será realizado pesquisa a respeito da área de aprendizado de máquina, buscando especificamente o conhecimento da técnica de Redes Neurais Profundas que aborda temas como o a classificação das estruturas de proteínas bem como a predição dos melhores pontos estimados do docking.
+
+Após ser estudado o docking será realizado pesquisa a respeito da área de aprendizado de máquina, buscando especificamente o conhecimento da técnica de florestas aleatórias, que aborda temas como o a classificação das estruturas de proteínas bem como a predição dos melhores pontos estimados do docking.
 
 Também deverá ser feito um levantamento das ferramentas de quais ferramentas (softwares) são utilizados e quais foram as otimizações das funções de avaliação que tiveram ao longo dos anos e quais os benchmarks.
 
 Será necessário também testar e utilizar softwares,bases de dados e  frameworks que auxiliem no desenvolvimento e treino do aprendizado de máquina.
+
+\section{Materiais Utilizados para simulação}
+É necessário baixar bases de dados em formatos de arquivo .pdb, que podem ser baixadas através do site (PDBBind), essas bases contêm todas as informações necessárias para conhecer a estrutura das proteínas, ligantes e DNA. 
+O uso dessas bases será de extrema importância,pois ao utiliza-la será possível aplicar treinamento. 
+Estas bases vão conter informações referentes de cada molécula. Neste arquivo será utilizado para treino informações relevantes sobre: 
+\begin{itemize}
+
+\item \textbf{Posição:} Coordenadas x,y,z;
+\item \textbf{Ordem:} 4
+\item \textbf{Nome:} C11
+\item \textbf{Propriedade Química} : C (representa carbono)
+
+\end{itemize}
+
+Esse arquivo foi aberto no software AutoDock, utilizando o pdt (protein docking tools) para manipular a estrutura, adicionar ligantes, escolher pontos para simulação de interações, otimização e desenvolvimento de proteínas. 
+
+Após ser executado o processo desejado é salvo em um formato pdbqt que será lido pelo software vina. Este é encarregado de calcular e estimar os melhores pontos de interação para ser realizado o docking, que exibe em Kcal dos 3 melhores resultados.
+
+Para testes e avaliações é calculado o coeficiente de correlação de Pearson e para erro o desvio de raiz quadrada médio (RMSE), eles são úteis para blablablá. 
+
+\section{Utilização de Florestas Aleatórias}
+Conforme visto na literatura, o desempenho das demais técnicas dependem da performance de execução dos diversos recursos computacionais empregados, ou seja, partindo do pressuposto da utilização da técnica de florestas aleatórias, não será necessários exímios recursos e processamento para melhores resultados, é evidente que quanto mais vezes for treinado e melhor descritos os parâmetros, a eficácia será maior.
+
+Dado o software disposto em GITHUB, foi feito toda sua análise e proposta na sua linguagem nativa C++ com o uso de computação imperativa para estipulação de resultados.
+
+\section{Software Ideal}
+
+Para que seja considerado a melhor forma de optar por prática em docking foi avaliado os seguintes quesitos:
+
+BLA
+BLA
+E BLABLA
+
+
 
 \begin{comment}
 \section{Subseção}
