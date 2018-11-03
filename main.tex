@@ -66,14 +66,13 @@
 \keyword{Avaliação}
 
 \begin{document}
-
+\maketitle 
 \renewcommand{\advisorname}
 {Orientador}          
 %\renewcommand{\coadvisorname}{Coorientador}      %descomente caso tenhas coorientadora
-\maketitle 
 \sloppy
-%\fichacatalografica
-%\folhadeaprovacao
+\fichacatalografica
+\folhadeaprovacao
 %Opcional
 %\begin{dedicatoria}
 %\end{dedicatoria}
@@ -95,11 +94,12 @@ Em primeiro lugar gostaria de agradecer ao apoio de meus familiares por ser poss
 \begin{comment}
 O processo de desenvolvimento de fármacos é normalmente algo custoso financeiramente, que demanda muito tempo e recursos para serem realizados, muitas vezes é feito por uma pessoa de forma manual. 
 
-Esta questão pode ser melhorada, caso todo o processo fosse automatizado computacionalmente, mais especificamente tendo, um software que examine a estrutura de uma célula ligante e também faça a comparação entre suas similaridades com outra célula, esta sendo chamda de receptora, afim de ter um mapeamento de moléculas  que definem  ambas estruturas das  duas células e também a avaliação do quanto estão bem ligadas, para isto é aplicada uma técnica, chamada de Docking Molecular.
+Esta questão pode ser melhorada, caso todo o processo fosse automatizado computacionalmente, mais especificamente tendo, um software que examine a estrutura de uma célula ligante e também faça a comparação entre suas similaridades com outra célula, esta sendo chamada de receptora, afim de ter um mapeamento de moléculas  que definem  ambas estruturas das  duas células e também a avaliação do quanto estão bem ligadas, para isto é aplicada uma técnica, chamada de Docking Molecular.
 
 Os softwares existentes, utilizam o docking para este processo de avaliação, porém, possuem um precisão de acertos imprecisos ao lidar com grandes volumes de dados para serem avaliados. 
-Para que possa ser melhorada a precisão desses softwares, deve ser feito uma otimização na função de avaliação usado nestes sofwares e treina-la com deep learing, para que assim o processo de docking esteja trabalhando com melhores resultados. 
+Para que possa ser melhorada a precisão desses softwares, deve ser feito uma otimização na função de avaliação usado nestes softwares e treina-la com deep learning, para que assim o processo de docking esteja trabalhando com melhores resultados. 
 \end{comment}
+
 \begin{abstract}
 O processo de desenvolvimento de drogas medicinais é demorado,custoso e em grande parte manual.
 Para melhorar e condicionar uma droga a um efeito desejado, utiliza-se uma técnica chamada Docking Molecular, que consiste em realizar atracamento de células e substâncias,onde o seu resultado demonstra o quão bem ligadas suas estruturas estão.Este processo é feito em grande parte por softwares, que exibem a melhor opção e combinações no design das células, ainda que estejam bem limitados em sua capacidade de predizer seus resultados.Uma possível solução seria utilizar Redes Neurais para otimizar este processo e diminuir o número de informações necessárias passadas para avaliação.
@@ -139,7 +139,7 @@ Ao ser desenvolvida uma nova droga é necessário estudar as propriedades quími
 Por consequência disso é comum que seja utilizado softwares que analizam estruturas celulares e aplicam a técnicas específicas da área de biomedicina, sendo uma delas o docking molecular, que ajuda a simular o comportamento entre duas estruturas ao se juntarem.
 Com isto é possível poupar tempo e diminuir o custo de recursos no desenvolvimento de fármacos.
 
-É de conhecimento geral que a tecnologia evoluiu muito nos ultimos anos, em especial na computação, tanto no software como no hardware,  em razão disso os programas que realizam docking hoje em dia tem cada vez maior capacidade para processamento, permitindo que seja obtido melhores resultados, desempenho e maior riquezas de detalhes ao explorar uma estrutura celular por exemplo, que pode ser vista de forma tridimensional.
+É de conhecimento geral que a tecnologia evoluiu muito nos últimos anos, em especial na computação, tanto no software como no hardware,  em razão disso os programas que realizam docking hoje em dia tem cada vez maior capacidade para processamento, permitindo que seja obtido melhores resultados, desempenho e maior riquezas de detalhes ao explorar uma estrutura celular por exemplo, que pode ser vista de forma tridimensional.
 
 Esses detalhes são importantes para aplicar o docking, pois trazem bastante informação ao realizar o estudo do comportamento entre duas estruturas celulares, que geralmente costumam ser um sequenciamento de DNA ou uma proteína.%\textbf{REF} % citar exemplo
 
@@ -231,8 +231,7 @@ Geralmente é utilizado esta abordagem após ser feito o docking rígido, orient
 	\caption{Docking Rígido com refinamento flexível}
 	\end{figure}
 
-
-\section{Função de pontuação}
+\section{Função de Pontuação}
 O aprendizado de máquina se tornou algo bem comum ao ser aplicado em diversas áreas da computação, ao ser aplicado em software deve ser levantado os pontos que são relevantes para o processo de docking.
 
 Nos softwares de docking são utilizados algoritmos para gerar funções de avaliação para estimar o gasto energético durante a união entre moléculas, como por exemplo algoritmo genético \cite{holland1975adaptation}, Simulate Annealing \cite{kirkpatrick1984optimization} ,  algoritmo genético de Lamarca \cite{morris1998automated},  MonteCarlo \cite{caflisch1992monte}.
@@ -240,42 +239,70 @@ Nos softwares de docking são utilizados algoritmos para gerar funções de aval
 Estes algoritmos estão constantemente sendo evoluídos e até substituídos para obterem mais eficácia ao estimar grandes volumes de dados com um desempenho melhor.
 Portanto, é possível dizer que ao melhorar a precisão desta função, é possível otimizar o processo de docking molecular consideravelmente.
 
-\section{Técnicas de Aprendizado de máquina }
+\section{Software - Autodock Tools e Vina}
+
+Falar um pouco sobre o que é, sobre o que é possível fazer com ele, suas precisões e acertos, mostrando imagens do mesmo.
+
+\section{Técnicas de Aprendizado de Máquina }
 %Falar sobre deep learning, svm, florestas aleatorias algoritmo genético e todas ténicas que foram utilizadas anteriormente em softwares
 O foco será direcionado para o estudo de uma das técnicas de Inteligência Artificial na literatura, sendo uma delas redes neurais profundas, onde é possível utiliza-la para treinar os algoritmos para previsão e definição dos melhores resultados possíveis. 
 
 Começando pelo pelo básico da IA, temos o aprendizado supervisionado e não supervisionado, dentre estes são utilizados funções de classificação e agregação que são muito limitadas para serem exploradas em um volumes de dados muito grande.
 Para estudar o comportamento de uma célula é necessário fazer um mapeamento de sua estrutura para compreender suas peculiaridades e comportamentos. 
 
-Tal processo é muito custoso e demorado dependendo do poder de processamento. 
-Para fazer a máquina explorar toda a estrutura das moléculas, será requerido várias  bases de dados, com volumes grandiosos de informação. 
+Tal processo é muito custoso se tratando do tempo gasto para exibir resultados, dependendo do poder de processamento e da técnica de machine learning utilizada (svm, algoritmo genético random forest). 
+Para fazer a máquina explorar e buscar informações referentes a composição das moléculas, será requerido bases de dados (datasets), que irá conter os dados necessários para efetuar treinos e testes. 
 
-Ao utilizar técnicas de IA, deve levar em consideração qual aspecto do docking deve ser melhorado. Abaixo é falado sobre alguns desses aspectos.
+Existem diversos softwares que utilizam técnicas de IA, cada um leva em consideração qual aspecto do docking deve ser melhorado. Abaixo é falado sobre alguns desses aspectos.
 % \begin{itemize}
 
-\textbf{(1)Scoring Power:} the ability to produce scores for the different binding poses; these scores are supposed to be linearly correlated with the experimentally determined binding affinities of the protein-ligand complexes of known 3D structures. 
+\textbf{(1)Poder de Pontuação:} the ability to produce scores for the different binding poses; these scores are supposed to be linearly correlated with the experimentally determined binding affinities of the protein-ligand complexes of known 3D structures. 
 
-\textbf{(2) Ranking Power:}
+\textbf{(2) Poder de Ranqueamento:}
 the ability to correctly rank a given set of ligands with known binding poses when bound to a common protein. 
 
-\textbf{(3)Docking Power:} the ability to
+\textbf{(3)Poder de Docking:} the ability to
 identify the best binding pose of a given ligand from a set of computationally
 generated poses when bound to a specific protein,
 
-\textbf{(4)Screening Power:}
+\textbf{(4)Poder de escaneamento:}
 which is the ability of a scoring function to
 identify the true binders to a given target protein among a pool of random
 molecules.
 % \end{itemize}
 
-Neste trabalho o foco será em estudar uma otimização do poder de ranqueamento de docking, avaliando quais as melhores perspectivas para um conhecido sítio de união.
-Para este caso em específico o uso de florestas aleatórias é satisfatório pois compreende um bom desempenho e blablabla \textbf{CITACAO}.
+%Citar também softwares que utilizam tais técnicas descritas acima
+
+Neste trabalho o foco foi estudar uma otimização do poder de ranqueamento de docking, ou seja, ser capaz de avaliar e estimar qual a melhor estrutura para um determinado ligante ou proteína se encaixar.
+
+Para este caso em específico,\textbf{FULANO} utilizou florestas aleatórias e obteve um resultado satisfatório pois compreende um bom desempenho ao utilizar um grande volumes de parâmetros e  \textbf{BLABLABLA}
+
+\subsection{Random Forests}
+Conforme visto na literatura, o desempenho das demais técnicas dependem da performance de execução dos diversos recursos computacionais empregados, ou seja, partindo do pressuposto da utilização da técnica de florestas aleatórias, não será necessários exímios recursos e processamento para melhores resultados, é evidente que quanto mais vezes for treinado e melhor descritos os parâmetros, a eficácia será maior.
+
+Dado o software disposto em GITHUB, foi feito toda sua análise e proposta na sua linguagem nativa C++ com o uso de computação imperativa para estipulação de resultados.
 
 As florestas aleatórias utilizam isso isso e aquilo, do qual é possível criar arquivos com n-features e recursos, para melhor compreendimento de como funcionará as florestas aleatórias, será explicado na seção de metodologia deste trabalho. 
 
+Porém o uso desta técnica pode acarretar o overfiting devido a taltaltal, que pode ser visto a seguir na seção de resultados.
+
+\subsection{Support Vector Machine}
+
+Para que seja considerado a melhor forma de optar por prática em docking foi avaliado os seguintes quesitos:
+
+FALAR DOS REQUISITOS
+
+Para este trabalho foi proposta uma alternativa ao RF-Score, utilizando os mesmos dados porém otimizando os resultados aplicando outra técnica de machine learning, chamada Suporte Vector Machine (svm), com a finalidade de resolver os problemas presentes na implementação de floresta aleatória.
+
+\begin{comment}
+\end{comment}
+
+\section{Data-sets}
+
+Falar sobre bases de dados para treino e teste, como dividir e classifica-los. Assim será mais fácil explicar na metodologia
 
 \chapter{Metodologia}
-Em primeiro momento o foco será estudar os componentes necessários para realização de docking e  fazer uma revisão bibliográfica dos recursos necessários.
+Em primeiro momento o foco será estudar os componentes necessários para realização de docking e  fazer uma revisão bibliográfica dos recursos necessários para realiza-lo.
 
 Esta revisão tem como objetivo se aprofundar nos temas que envolvem todo o processo de docking como onde é aplicado, qual o processo para ser executado, as ferramentas, requisitos necessários  e saber quais os resultados esperados computacionalmente.
 
@@ -283,16 +310,18 @@ A parte de aplicações refere-se ao uso de docking e para o que é útil,  em e
 
 O processo de realizar docking através de softwares ajuda a entender como ocorre o funcionamento desta técnica, com isso é possível saber ter uma estimativa de quais são os requisitos e resultados esperados que serão avaliados computacionalmente.
 
-Após ser estudado o docking será realizado pesquisa a respeito da área de aprendizado de máquina, buscando especificamente o conhecimento da técnica de florestas aleatórias, que aborda temas como o a classificação das estruturas de proteínas bem como a predição dos melhores pontos estimados do docking.
+Após ser estudado o docking foi realizado uma pesquisa a respeito da área de aprendizado de máquina, buscando especificamente o conhecimento da técnica de florestas aleatórias e SVM, que aborda temas como o a classificação das estruturas de proteínas bem como a predição dos melhores pontos estimados do docking.
 
-Também deverá ser feito um levantamento das ferramentas de quais ferramentas (softwares) são utilizados e quais foram as otimizações das funções de avaliação que tiveram ao longo dos anos e quais os benchmarks.
+Também foi feito um levantamento das ferramentas existentes; de quais ferramentas (softwares) são utilizados e quais foram as otimizações das funções de avaliação que tiveram ao longo dos anos segundo os benchmarks.
 
-Será necessário também testar e utilizar softwares,bases de dados e  frameworks que auxiliem no desenvolvimento e treino do aprendizado de máquina.
+Assim como também testar e utilizar softwares,bases de dados, api's e frameworks de linguagens de programação, especificamente o módulo sklearn (CITAR DOCUMENTACAO)do Python que auxiliem no desenvolvimento e treino do aprendizado de máquina.
 
-\section{Materiais Utilizados para simulação}
-É necessário baixar bases de dados em formatos de arquivo .pdb, que podem ser baixadas através do site (PDBBind), essas bases contêm todas as informações necessárias para conhecer a estrutura das proteínas, ligantes e DNA. 
-O uso dessas bases será de extrema importância,pois ao utiliza-la será possível aplicar treinamento. 
-Estas bases vão conter informações referentes de cada molécula. Neste arquivo será utilizado para treino informações relevantes sobre: 
+\section{Materiais Utilizados para Avaliação}
+É necessário baixar bases de dados em formatos de arquivo .pdb, que podem ser baixadas através do site (PDBBind). Essas bases contêm todas as informações necessárias para conhecer a estrutura das proteínas, ligantes e DNA. 
+O uso dessas bases será de extrema importância,pois ao utiliza-la será possível aplicar treinamento e com isso estimar resultados no ao realizar um teste. 
+Os dados das bases irão conter informações referentes de cada molécula, ou seja, parâmetros de afinidade (pdbaff, distância euclidiana, PDB. Mais para frente será comentado sobre a importância desses aspectos.
+
+No arquivo .pdb será utilizado para treino informações relevantes sobre: 
 \begin{itemize}
 
 \item \textbf{Posição:} Coordenadas x,y,z;
@@ -302,38 +331,48 @@ Estas bases vão conter informações referentes de cada molécula. Neste arquiv
 
 \end{itemize}
 
-Esse arquivo foi aberto no software AutoDock, utilizando o pdt (protein docking tools) para manipular a estrutura, adicionar ligantes, escolher pontos para simulação de interações, otimização e desenvolvimento de proteínas. 
+Esse arquivo pode ser aberto no software AutoDock, utilizando o pdt (protein docking tools) para manipular a estrutura, adicionar ligantes e parâmetros extras, remoção de átomos de água, escolher pontos para simulação de interações, otimização e desenvolvimento de proteínas. 
 
 Após ser executado o processo desejado é salvo em um formato pdbqt que será lido pelo software vina. Este é encarregado de calcular e estimar os melhores pontos de interação para ser realizado o docking, que exibe em Kcal dos 3 melhores resultados.
 
-Para testes e avaliações é calculado o coeficiente de correlação de Pearson e para erro o desvio de raiz quadrada médio (RMSE), eles são úteis para blablablá. 
+Este é o procedimento utilizado pelos cientistas e biotecnologos ao utilizar estas ferramentas, logo após ser feita a triagem simulada é escolhido pelos especialistas os melhores resultados estimados pelo Vina e assim feita a triagem em vitro, onde é tirada a prova real da qualidade das ligações.
 
-\section{Utilização de Florestas Aleatórias}
-Conforme visto na literatura, o desempenho das demais técnicas dependem da performance de execução dos diversos recursos computacionais empregados, ou seja, partindo do pressuposto da utilização da técnica de florestas aleatórias, não será necessários exímios recursos e processamento para melhores resultados, é evidente que quanto mais vezes for treinado e melhor descritos os parâmetros, a eficácia será maior.
+Uma excelente métrica que diversos pesquisadores utilizam para testes e avaliaçõe, é através do cálculo de coeficiente de correlação de Pearson e o desvio de raiz quadrada médio (RMSE), este último especificamente para erro, pois é possível comparar o overfiting no treinamento e teste.
 
-Dado o software disposto em GITHUB, foi feito toda sua análise e proposta na sua linguagem nativa C++ com o uso de computação imperativa para estipulação de resultados.
+\section{Definição de Parâmetros}
 
-\section{Software Ideal}
+Explicar sobre os labels e parâmetros utilizados para teste e treino do SVM.
+O que são as afinidades (pdbaff), distância euclidiana (6.6,6.7) e qual label (PDB) utilizado.
 
-Para que seja considerado a melhor forma de optar por prática em docking foi avaliado os seguintes quesitos:
+\section{Bibliotecas e API's Sklearn do Python}
 
-BLA
-BLA
-E BLABLA
-
-
-
-\begin{comment}
-\section{Subseção}
+Falar de quais módulos, bibliotecas e funções  foram utilizados.
 
 \chapter{Resultados}
 
-\section{Subseção}
+\section{Resultados do Random Forest}
+
+No trabalho proposto por \textbf{BALLESTER} foi obtido os seguintes resultados:
+
+Mostrar imagem e gráficos do artigo dele.
+
+\section{Resultados do SVM}
+
+Ao utilizar svm como alternativa foi possível obter tais resultados:
+
+Mostrar o resultado que obtive com imagens e gráficos.
+
+\section{SVM X Random Forest}
+
+Ao utilizar a técnica de Random Forest o resultado de tal e tal é bom para tal coisa mas isso leva uma má impressão de outra coisa, que no SVM deixa o resultado mais evidente pois tal tal tal.
 
 \chapter{Conclusões}
 
+Colocar toda análise de cada capítulo aqui desde a introdução,fundamentação teórica,metodologia e resultados.
+
 \section{Trabalhos Futuros}
-\end{comment}
+
+Falar na conclusão ou deixar separado.
 
 \bibliography{relatorio}
 \bibliographystyle{abnt}
