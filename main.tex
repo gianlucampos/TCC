@@ -53,7 +53,7 @@
 \nomecurso{Engenharia de Computação}
 \titulocurso{Engenheiro de Computação.}
 
-\title{Otimizando função de pontuação de docking molecular com uso de Florestas Aleatórias}
+\title{Otimizando função de pontuação de docking molecular com uso de Support Vector Machine }
 
 \author{de Campos}{Gianluca}
 \vspace{1.2cm}
@@ -80,7 +80,13 @@
 %Opcional
 \begin{agradecimentos}
 \textbf{Agradecimentos} \\
-Em primeiro lugar gostaria de agradecer ao apoio de meus familiares por ser possível estar aqui estudando nesta instituição, dando o máximo de suporte possível para que eu pudesse estar aqui hoje. Agradeço também aos colegas de turma e trabalho, em especial Rodrigo Lima (vulgo Carioca) pelo auxílio nas difíceis tarefas no estudo e também pelo monitoramento delas. Em especial um agradecimento também ao meu Orientador por se disponibilizar para me ajudar ao longo deste ano para concluir este trabalho.
+Em primeiro lugar gostaria de agradecer ao apoio de meus familiares por ser possível estar aqui estudando nesta instituição, dando o máximo de suporte possível para que eu pudesse estar aqui hoje.
+
+Agradeço também aos colegas de turma, em especial ao Marcos, por me dar apoio na hora que mais precisei.
+
+Também agradeço à colegas de trabalho, em especial Rodrigo Lima (vulgo Carioca) pela constante cobrança quanto aos prazos deste trabalho.
+
+Em especial um agradecimento também ao meu Orientador por se disponibilizar para me ajudar ao longo deste curso, auxiliando nas difíceis tarefas, estudo e também pelo monitoramento delas, para que pudesse desta forma, concluir o trabalho.
 \vspace{\baselineskip}
 \end{agradecimentos}
 
@@ -101,8 +107,13 @@ Para que possa ser melhorada a precisão desses softwares, deve ser feito uma ot
 \end{comment}
 
 \begin{abstract}
-O processo de desenvolvimento de drogas medicinais é demorado,custoso e em grande parte manual.
-Para melhorar e condicionar uma droga a um efeito desejado, utiliza-se uma técnica chamada Docking Molecular, que consiste em realizar atracamento de células e substâncias,onde o seu resultado demonstra o quão bem ligadas suas estruturas estão.Este processo é feito em grande parte por softwares, que exibem a melhor opção e combinações no design das células, ainda que estejam bem limitados em sua capacidade de predizer seus resultados.Uma possível solução seria utilizar aprendizado de máquina para otimizar este processo e diminuir o número de informações necessárias passadas para avaliação.
+O processo de desenvolvimento de drogas medicinais é demorado, custoso e em grande parte manual.
+Para melhorar e condicionar uma droga a um efeito desejado, use-se uma técnica chamada Docking Molecular, que consiste em realizar o atracamento entre uma estrutura denominada ligante e outra sendo uma receptora, onde o resultado do acoplamento, demonstrar o grau de afinidade da ligação entre as mesmas.
+Esta técnica esta presente diversos softwares, que exibem design da estrutura das moléculas, onde é possível efetuar a manipulação e aplicar ajustes para então estimar resultados.
+Para este trabalho, é proposto como solução aplicar, com auxílio de api's e bibliotecas da linguagem de programação Python, a técnica de aprendizado de máquina - Support Vector Machine(SVM). Fazendo uso de treinamento e teste, em bases de dados que contém informações de milhares de complexos do tipo ligante-proteína, com a finalidade de obter uma possível otimização no processo de predição de afinidade entre as estruturas.
+Para avaliação de resultados, é realizada uma comparação com outro trabalho relacionado, utilizando a mesma métrica de avaliação (valor de erro médio quadrático - RMSE), bases de informações e quantidade de amostras.
+Neste trabalho obteve um RMSE de 0.45 contra 0.74 ao aplicar a predição de afinidade no treino, e 1.97 contra 1.58 no teste.
+Com isso uma melhora significativa pode ocorrer na classificação de estruturas desconhecidas, em trabalhos futuros, ajudando a diminuir o número de informações necessárias passadas para avaliação de possíveis fármacos alvo que podem ser compatíveis.
 \end{abstract}
 
 \begin{englishabstract}
@@ -110,9 +121,11 @@ Para melhorar e condicionar uma droga a um efeito desejado, utiliza-se uma técn
   {Algorithm, Optimization, Evaluation}  
   
 The process of developing medicinal drugs is time-consuming, costly and largely manual.
-In order to improve and condition a drug to a desired effect, a technique called Docking Molecular is used, which consists of docking of cells and substances, where its result demonstrates how well bound their structures are. \\
-This process is largely done by softwares, which display the best choice and combinations in cell design, even though they are quite limited in their ability to predict their results.
-A possible solution would be to use Machine Learning to optimize this process and decrease the number of information needed for evaluation.
+To improve and condition a drug to a desired effect, use a technique called Docking Molecular, which consists of carrying out the mooring between a structure called a linker and another being a receiver, where the result of the coupling, demonstrate the degree of affinity of the bond between them.
+This technique is present in several softwares, which show the structure design of the molecules, where it is possible to perform the manipulation and apply adjustments to estimate the results.
+For this work, it is proposed as a solution to apply, with the help of api's and libraries of the programming language Python, the machine learning technique - Support Vector Machine (SVM). Using training and testing, in databases containing information from thousands of ligand-protein complexes, in order to obtain a possible optimization in the process of predicting affinity between structures.
+For evaluation of results, a comparison is made with other related work,
+Thus a significant improvement can occur in the classification of unknown structures in future work, helping to decrease the number of information needed to evaluate possible target drugs that may be compatible.
 
 \end{englishabstract}
 
@@ -125,6 +138,9 @@ A possible solution would be to use Machine Learning to optimize this process an
 \begin{listofabbrv}{RFCOMM}
 		\item[UCPel] \textit{Universidade Cat\'olica de Pelotas}
         \item[CAPRI] \textit{Critical Assessment of PRedicted Interactions}
+        \item[RMSE] \textit{Root Mean Square Deviation}
+        \item[API] \textit{Aplication Programming Interface}
+        \item[SVM] \textit{Support Vector Machine}
 
         
         
@@ -134,44 +150,43 @@ A possible solution would be to use Machine Learning to optimize this process an
 \tableofcontents
 
 \chapter{Introdução}
-Ao ser desenvolvida uma nova droga é necessário estudar as propriedades químicas e analisar a estrutura das moléculas, o processo de desenvolvimento é bem custoso, pois leva tempo para poder realizar testes e avaliar resultados,que são feitos em vitro e examinados em laboratório sendo em grande parte manual e dependente de um ser humano.%\textbf{REF}%CITAR REFERENCIA DE COMO É FEITO DOCKING MANUALMENTE
+Ao ser desenvolvida uma nova droga é necessário estudar as propriedades químicas e analisar a composição estrutural das moléculas, o processo de desenvolvimento é bem custoso e demorado, pois leva tempo para poder realizar testes e avaliar resultados,que são feitos em vitro e examinados em laboratório \cite{prnasciutti2012}, sendo em grande parte manual e dependente de um ser humano.
 
-Por consequência disso é comum que seja utilizado softwares que analizam estruturas celulares e aplicam a técnicas específicas da área de biomedicina, sendo uma delas o docking molecular, que ajuda a simular o comportamento entre duas estruturas ao se juntarem.
-Com isto é possível poupar tempo e diminuir o custo de recursos no desenvolvimento de fármacos.
-
-É de conhecimento geral que a tecnologia evoluiu muito nos últimos anos, em especial na computação, tanto no software como no hardware,  em razão disso os programas que realizam docking hoje em dia tem cada vez maior capacidade para processamento, permitindo que seja obtido melhores resultados, desempenho e maior riquezas de detalhes ao explorar uma estrutura celular por exemplo, que pode ser vista de forma tridimensional.
+Por consequência disso é comum que seja utilizado softwares que analizam estruturas celulares e apliquem técnicas específicas da área de biomedicina para testes e avaliações simuladas computacionalmente, como por exemplo as ferramentas baseadas no princípio da técnica de docking molecular.
+Um exemplo destes é o pacote de softwares open-source Autodock-Tools \cite{autodocktools}, que possuem programas que vão desde manipulação de e visualização da estrutura de possíveis fármacos a nível molecular (CADD), até ajuda a estimar o comportamento que duas estruturas realizam ao se juntarem \cite{trott2010autodock}.
+Com isto o uso destes tipos de softwares, possível poupar tempo e diminuir o custo de recursos no desenvolvimento de fármacos.
 
 Esses detalhes são importantes para aplicar o docking, pois trazem bastante informação ao realizar o estudo do comportamento entre duas estruturas celulares, que geralmente costumam ser um sequenciamento de DNA ou uma proteína.%\textbf{REF} % citar exemplo
 
 Este comportamento é útil para o desenvolvimento de fármacos, podendo ajudar a estudar inibidores de um vírus por exemplo,  onde ao aplicar a técnica de docking foi possível descobrir substâncias que pudessem inibir o vírus Influenza\cite{ishikawa2011binding}.
 
-A técnica de docking consiste em analisar duas estruturas de células e junta-las com a melhor conformidade de encaixe possível, sendo a partir disto, possível de analisar as propriedades em comum e estuda-las.
+O objetivo que se tem em aplicar a técnica de docking é analisar duas estruturas, uma considerada ligante e outra receptora, junta-las de forma que ocorra a melhor conformidade de encaixe possível, sendo a partir disto, possível de analisar as propriedades em comum e estuda-las.
 
-Para poder aplicar o docking é necessário conhecer a molécula ligante, qual o receptor que seria qual estrutura ela irá se ligar (proteína ou DNA). Ao conhecer as estruturas, é avaliado qual o melhor ponto em que serão encaixadas e a quantidade de energia que será liberada ao ocorrer esta ligação.
+Para poder aplicar o docking é necessário conhecer a molécula ligante, qual o receptor que seria qual estrutura ela irá se ligar (proteína ou DNA). Ao conhecer as estruturas, é avaliado qual o melhor ponto em que serão encaixadas, a quantidade de energia que será liberada ao ocorrer esta ligação e com isto qual o grau de afinidade entre a estrutura ligante receptora. Para isto é considerado o princípio da minimização energética, que prevê que quanto menor a energia, melhor conformidade \cite{kitchen2004docking}.
 
-Este processo de avaliação foi calculado através diversos algoritmos ao longo dos anos como; algoritmo genético \cite{holland1975adaptation},  Simullate Annealing \cite{kirkpatrick1984optimization} ,  algoritmo genético de Lamarca \cite{morris1998automated},  MonteCarlo \cite{caflisch1992monte} entre outros que foram tiveram evoluções ao longo dos anos. 
+Com o passar dos anos, novas tecnologias foram surgindo, tanto a área da biomedicina quanto na computação,trazendo melhores hardwares e softwares, em razão disso os programas que realizam docking hoje em dia tem cada vez maior capacidade para processamento, permitindo que seja obtido melhores resultados, desempenho e maior riquezas de detalhes ao explorar uma estrutura celular.
+
+Com essa evolução computacional, softwares começaram a aplicar utilizar técnicas de aprendizado de máquina para calcular e estimar resultados da função de pontuação.
+Tendo diversos algoritmos empregados como; algoritmo genético \cite{holland1975adaptation},  Simullate Annealing \cite{kirkpatrick1984optimization} ,  algoritmo genético de Lamarca \cite{morris1998automated},  MonteCarlo \cite{caflisch1992monte} entre outros que foram tiveram evoluções ao longo dos anos. 
 
 Dependendo do algoritmo utilizado, a precisão do resultado pode variar, assim como seu desempenho e rapidez para gera-lo.
-Com a evolução da área computacional, novos estudos são feitos para obter dados com melhor desempenho, em particular a Deep Learning tem se mostrado útil para vários estudos na área de biomedicina conforme avaliado por \cite{korotcov2017comparison,mamoshina2016applications}
-, esta técnica basicamente consiste em treinar a máquina, para que ela possa classificar algo em grande escala afim de se obter da melhor forma possível  os resultados.
+Com a evolução da área computacional, novos estudos são feitos para obter dados com melhor desempenho, em particular a Deep Learning tem se mostrado útil para vários estudos na área de biomedicina conforme avaliado por \cite{korotcov2017comparison} e \cite{mamoshina2016applications}, esta técnica basicamente consiste em treinar a máquina, para que ela possa classificar algo em grande escala afim de se obter da melhor forma possível  os resultados.
 
+Também  pode ser aplicado, como mostra \cite{ballester2010machine}, a técnica de florestas aleatórias para prever a afinidade de complexos de proteínas e ligantes ao utilizar bases de dados para treinamento e teste.
 
-\section{Objetivo do trabalho}% Mantenho assim ou falo que realizarei uma comparação com tal artigo ?
-Tendo em vista que o processo de desenvolvimento de fármacos é custoso, demorado e geralmente necessita de monitoramento, é necessário utilizar algum software que utilize a técnica de docking molecular para automatizar o processo.
+Existem diversas técnicas para serem empregadas a softwares de Docking, neste caso é interessante saber o que e como pode ser melhorado o mesmo, pois este será o trabalho da inteligência artificial, identificar padrões, aprende-los e predizer resultados.
 
-O problema é que nem sempre os resultados gerados pela avaliação dos softwares são rápidos e precisos, essencialmente ao avaliar grandes volumes de dados.
+\section{Objetivo do trabalho}
 
-Aproveitando a evolução de tecnologia que ocorreu tanto da área da biomedicina e computação, é possível otimizar tanto o processo quanto o resultado do docking utilizando técnicas de aprendizado de máquina, em especial, para este trabalho, aplicando Support Vector Machine (SVM).
-
-Esta mesma classificará os melhores resultados preditos nas função(ões) de avaliação, ao utilizar estruturas já conhecidas em bases de dados e realizando a comparação de valores existentes.
-
-O uso desta técnica ajuda a validar um grande volume de informações e também a escolher os melhores resultados.
-
+Este Trabalho aplica uma técnica de aprendizado máquina (SVM) com a finalidade de prever a afinidade de complexos ligante-proteína. Para isso foram utilizadas bases de informações (data-sets), \cite{wang2004pdbbind} sendo utilizadas para aplicar treinamento e teste. 
+Como objetivo secundário foi feito uma comparação de resultados com o artigo de \cite{ballester2010machine}, onde o mesmo utilizou a técnica de florestas randômicas (random forests).
+Com isso será possível demonstrar o índice de acertos previstos e a eficácia entre duas técnicas distintas  de aprendizado de máquina, utilizando as mesmas métricas para avaliação e bases de informações.
+Com os resultados apresentados, o aprendizado de máquina ajuda a diminuir o número de levantamento de informações necessárias para poder ser feita a  avaliação de possíveis fármacos alvos a serem estudados
 
 \section{Organização do texto}
-Neste trabalho foram divididos da seguinte forma.
+Este trabalho tem capítulos divididos da seguinte forma.
 
-O Capítulo 2 abrange o referencial teórico sobre o qual será desenvolvido o trabalho de conclusão de curso, em específico, falará sobre a definição do que seria o docking, como é realizado o processo de docking, o contexto de onde está inserido, da mesma forma será feito ao falar sobre aprendizado de máquina, as técnicas e bases de dados para treinamento e teste.
+O Capítulo 2 abrange o referencial teórico sobre o qual será desenvolvido o trabalho de conclusão de curso, em específico, explicando sobre a definição do que seria o docking, como é realizado o processo de docking, o contexto de onde está inserido, comentado brevemente sobre aprendizado de máquina, as técnicas existentes e bases de dados para treinamento e teste.
 
 No Capítulo 3, é apresentado como será realizado o estudo e otimização da avaliação de resultados do docking molecular ao aplicar a técnica de SVM, contendo uma descrição dos componentes necessários para validar sua implementação.
 
@@ -180,10 +195,10 @@ No Capítulo 4, será descrito os resultados obtidos deste trabalho, sendo feito
 Por fim, o Capítulo 5, falará sobre uma visão geral de todo o trabalho, traçando perspectivas para possíveis implementações futuras.
 
 \chapter{Fundamentação Teórica}
-Este capítulo faz uma breve revisão teórica sobre os assuntos necessários para a entender o processo de docking molecular  e deep learning.
+Este capítulo faz uma breve revisão teórica sobre os assuntos necessários para a entender o processo de docking molecular  e aprendizado de máquina.
 
 \section{Docking Molecular}
-No final da década de 1980, surgiram os primeiros softwares que realizavam o processo de docking molecular, possibilitando desta forma trazer uma visão mais detalhada das estruturas. Com isso foi possível manipular as moléculas e otimizar as células com mais facilidade e simular com maior precisão, permitindo mais rapidez ao realizar testes virtuais.
+No final da década de 1980, surgiam os primeiros softwares que realizavam o processo de docking molecular, possibilitando desta forma trazer uma visão mais detalhada das estruturas. Com isso foi possível manipular as moléculas e otimizar as células com mais facilidade e simular com maior precisão, permitindo mais rapidez ao realizar testes virtuais.
 
 Para realizar o docking, é necessário realizar o mapeamento das proteínas que irão se ligar, isso serve para prever os melhores pontos para que as moléculas se liguem, e conhecendo assim o ponto com melhor conformidade e energia que será gasta para a união. Isto pode ser visto na figura 1, onde mostra duas protéinas realizando  docking e consequentemente gerando inúmeros pontos de conformidade.
 
@@ -247,17 +262,24 @@ Portanto, é possível dizer que ao melhorar a precisão desta função, é poss
 
 \section{Software - Autodock Tools e Vina}
 
-Falar um pouco sobre o que é, sobre o que é possível fazer com ele, suas precisões e acertos, mostrando imagens do mesmo.
-
 Um dos softwares mais populares utilizados por pesquisadores e cientistas da área é o Autodock Vina \cite{trott2010autodock}, que veio como parte do software dos mesmos criadores do Autodock Tools.
 
+A maioria dos pesquisadores costumam realizar diversas modificações através deste software, utilizando o pdt (protein docking tools) para manipular a estrutura, adicionar ligantes e parâmetros extras, remoção de átomos de água, escolher pontos para simulação de interações, otimização e desenvolvimento de proteínas.
+
 Nestes softwares, é possível visualizar os átomos do complexo em 3D, sendo exibidas informações das coordenadas graficamente, permitindo assim reconhecer a posição de cada ponto da estrutura, e então manipular as moléculas de um determinado complexo, com o objetivo de poder estimar a energia gasta para realizar o acoplamento. 
-Após adicionar ligantes a um determinada região de interesse (sítio de união), pode ser salvo em um arquivo .PDBQT, que irá conter informações referentes ao posicionamento dos átomos, que será lida pelo Vina.
 
-Após ser realizada toda parte visual, chega a vez do Vina ler o arquivo, para avaliar e calcular a afinidade dos compostos, que irá exibir em Kcal/s a energia gasta.
+Após ser executado o processo desejado é salvo em um arquivo com formato .pdbqt, que será lido pelo software Vina. Este mesmo é encarregado de calcular e estimar os melhores pontos de interação para ser realizado o docking, que exibe em Kcal/s a afinidade dos melhores resultados.
+Após adicionar ligantes a um determinada região de interesse (sítio de união), pode ser salvo em um arquivo .PDBQT, que irá conter informações referentes ao posicionamento dos átomos, que será lida pelo Vina, como mostra na figura abaixo.
 
-% Mostrar Imagens do software
+      \begin{figure}[H]
+	\centering
+	\includegraphics[width=0.90\linewidth]{imagens/Autodock.png}
+	\caption{Exemplo de complexo}
+	\end{figure}
 
+Este é o procedimento utilizado pelos cientistas e bio tecnólogos ao utilizar estas ferramentas, logo após ser feita esta triagem simulada, é escolhido por especialistas os melhores resultados estimados pelo Vina, após diversos testes e assim feita a triagem em vitro, onde é tirada a prova real da qualidade das ligações.
+
+Uma excelente métrica que diversos pesquisadores utilizam para testes e avaliações, é através do cálculo de desvio de raiz quadrada médio (RMSE), pois é possível comparar o overfiting no treinamento e teste.
 
 \section{Técnicas de Aprendizado de Máquina }
 %Falar sobre deep learning, svm, florestas aleatorias algoritmo genético e todas ténicas que foram utilizadas anteriormente em softwares
@@ -288,11 +310,11 @@ Para este caso em específico,\textbf{\cite{ballester2010machine}} utilizou flor
 \subsection{Random Forests}
 Conforme visto na literatura, o desempenho das demais técnicas dependem da performance de execução dos diversos recursos computacionais empregados, ou seja, partindo do pressuposto da utilização da técnica de florestas aleatórias, não será necessários exímios recursos e processamento para melhores resultados, é evidente que quanto mais vezes for treinado e melhor descritos os parâmetros, a eficácia será maior.
 
-Dado o software disposto em GITHUB, foi feito toda sua análise e proposta na sua linguagem nativa C++ com o uso de computação imperativa para estipulação de resultados.
+Dado o trabalho de \cite{ballester2010machine} como exemplo foi necessário fazer validações dos data-sets e criar estruturas específicas para comportamento de átomos,ligantes e proteínas para poder aplicar treinamentos nas data-sets.
 
 As florestas aleatórias utilizam isso isso e aquilo, do qual é possível criar arquivos com n-features e recursos, para melhor compreendimento de como funcionará as florestas aleatórias, será explicado na seção de metodologia deste trabalho. 
 
-Porém o uso desta técnica pode acarretar o overfiting devido a taltaltal, que pode ser visto a seguir na seção de resultados.
+Porém o uso desta técnica pode acarretar o overfiting devido a alguns fatores, que pode ser visto a seguir na seção de resultados.
 
 \subsection{Support Vector Machine}
 
@@ -309,37 +331,31 @@ Um clássico exemplo para demonstrar em prática o SVM, é utilizando o data-set
 
 Ao analisar a figura é possível perceber que existe uma maior precisão de acertos de amostras ao utilizar diferentes tipos de Kernels.
 
-Os kernels possuem uma função específica, da qual são responsáveis por realizar a separação dos modelos do SVM, e existem diferentes tipos; linear,gaussiano,polinomial e sinoidal, sendo o mais comumente empregado o Gaussiano por ser capaz de \textbf{ESCREVER O PORQUE AQUI}
+Estes kernels possuem uma função específica, da qual são responsáveis por realizar a separação dos modelos do SVM, e existem diferentes tipos; linear,gaussiano,polinomial e sigmóide, sendo o mais comumente empregado o Gaussiano por ser capaz de analisar as bordas mais suavemente. %referência,
+
+Por conta disto, este trabalho optou-se em utilizar o kernel Gausiano do SVM, descrito como RBF (radial basis function) 
+por trazer o melhor resultado para prever a afinidade dos complexos.
+As informações presentes nas bases de testes e de treino foram armazenadas em um data-frame, onde a afinidade do complexo constituem os labels e de resto os parâmetros de entrada. 
+
+Para cada todos esses parâmetros de entrada deve propor uma saída (Label),  com isso o SVM irá realizar um treinamento utilizando uma análise de regressão utilizado o Kernel Gausiano como função principal.
+Após ser realizado o treinamento é hora de predizer um valor para afinidade de acordo com os parâmetros informados.
 
 \chapter{Metodologia}
-Para este trabalho foi proposta uma alternativa ao RF-Score, algoritmo proposto por \cite{ballester2010machine}, utilizando os mesmos dados das data-sets, porém buscando otimizar os resultados  de treino e teste, ao aplicar uma outra técnica de machine learning, Suporte Vector Machine (svm), com a finalidade de resolver os problemas presentes na implementação de floresta aleatória.
+Para este trabalho foi proposta uma alternativa ao RF-Score, algoritmo proposto por \cite{ballester2010machine}, sendo utilizando os mesmos dados das data-sets com a justa finalidade de comparação, buscando otimizar os resultados  de treino e teste, ao aplicar uma outra técnica de machine learning, Suporte Vector Machine (svm), com a finalidade de resolver os problemas presentes na implementação de floresta aleatória.
 
-Em primeiro momento o foco será estudar os componentes necessários para realização de docking e  fazer uma revisão bibliográfica dos recursos necessários para realiza-lo.
+Em primeiro momento o foco será estudar os componentes necessários para realização de docking e  fazer uma revisão bibliográfica dos recursos necessários para realiza-lo, tais como informações relevantes que podem influenciar resultados e previsões para treinamentos e testes. 
 
 Esta revisão tem como objetivo se aprofundar nos temas que envolvem todo o processo de docking como onde é aplicado, qual o processo para ser executado, as ferramentas, requisitos necessários  e saber quais os resultados esperados computacionalmente.
 
 A parte de aplicações refere-se ao uso de docking e para o que é útil,  em especial o que seria necessário para desenvolver algum fármaco.
 
-O processo de realizar docking através de softwares ajuda a entender como ocorre o funcionamento desta técnica, com isso é possível saber ter uma estimativa de quais são os requisitos e resultados esperados que serão avaliados computacionalmente.
+O processo de realizar docking através de softwares ajuda a entender como ocorre o funcionamento desta técnica, com isso é possível ter uma estimativa de quais são os requisitos e resultados esperados que serão avaliados computacionalmente.
 
 Após ser estudado o docking foi realizado uma pesquisa a respeito da área de aprendizado de máquina, buscando especificamente o conhecimento da técnica de florestas aleatórias e SVM, que aborda temas como o a classificação das estruturas de proteínas bem como a predição dos melhores pontos estimados do docking.
 
 Também foi feito um levantamento das ferramentas existentes; de quais ferramentas (softwares) são utilizados e quais foram as otimizações das funções de avaliação que tiveram ao longo dos anos segundo os benchmarks.
 
-Assim como também testar e utilizar softwares,bases de dados, api's e frameworks de linguagens de programação, especificamente o módulo sklearn \cite{scikit-learn}, da linguagem Python, que auxiliam no desenvolvimento e treino do aprendizado de máquina.
-
-
-\section{Definição de Parâmetros}
-
-Explicar sobre os labels e parâmetros utilizados para teste e treino do SVM.
-O que são as afinidades (pdbaff), distância euclidiana (6.6,6.7) e qual label (PDB) utilizado.
-
-Esse arquivo pode ser aberto no software AutoDock, utilizando o pdt (protein docking tools) para manipular a estrutura, adicionar ligantes e parâmetros extras, remoção de átomos de água, escolher pontos para simulação de interações, otimização e desenvolvimento de proteínas. 
-Após ser executado o processo desejado é salvo em um formato pdbqt que será lido pelo software vina. Este é encarregado de calcular e estimar os melhores pontos de interação para ser realizado o docking, que exibe em Kcal dos 3 melhores resultados.
-
-Este é o procedimento utilizado pelos cientistas e biotecnologos ao utilizar estas ferramentas, logo após ser feita a triagem simulada é escolhido pelos especialistas os melhores resultados estimados pelo Vina e assim feita a triagem em vitro, onde é tirada a prova real da qualidade das ligações.
-
-Uma excelente métrica que diversos pesquisadores utilizam para testes e avaliações, é através do cálculo de desvio de raiz quadrada médio (RMSE), pois é possível comparar o overfiting no treinamento e teste.
+Assim como também testar e utilizar softwares,bases de dados, api's e frameworks de linguagens de programação, especificamente o módulo sklearn \cite{scikit-learn}, junto a linguagem de programação Python, que auxiliam no desenvolvimento e treino do aprendizado de máquina.
 
 \section{Criação de Data-sets}
 Conforme dito anteriormente, é necessário ter exemplos prontos, com parâmetros de entrada e saída para poder aplicar o treinamento e teste em um dado algoritmo de aprendizado de máquina.
@@ -363,88 +379,119 @@ Para aplicação deste estudo foram utilizadas estas duas data-sets, uma chamada
 A base refinada originalmente continha cerca de 1300 linhas de exemplos com os parâmetros descritos anteriormente, porém foram retirados e separados em 3 clusters com 65 complexos da mesma, que acabou sendo utilizada para o teste, que será chamada de core. Logo existem  2 datasets, um para treino com 1105 amostras (refinado) e outro para teste com 195 amostras para teste.
 
 
+\section{Definição de Parâmetros}
+%ainda não terminei
+%Explicar sobre os labels e parâmetros utilizados para teste e treino do SVM.
+%O que são as afinidades (pdbaff), distância euclidiana (6.6,6.7) e qual label (PDB) utilizado.
+
+Seguindo o exemplo de \cite{ballester2010machine}, serão coletados a afinidade, de cada complexo dos arquivos presentes na base do PDBbind, será calculado a distância euclidiana entre as interações dos átomos de C,N,O,F,P,S,Cl,Br,I (somente daqueles) que compõem a estrutura do ligante e da proteína.
+
+Um parâmetro na data-set será responsável por identificar a qual proteína é correspondente, ou seja, o Id do complexo (11gs por exemplo).
+
+Para a afinidade é utilizado as constantes Kd(constante de dissociação), Ki (constante de inibição) e IC. Dependendo da estrutura só será informada alguma destas constantes, com é atribuído como valor de afinidade o resultado do -log10 K, sendo K a constante que estiver presente.
+
+Para a distância eucliana de cada átomo será utilizado 36 campos de parâmetros que representam a distância entre um e outro, por exemplo a distância entre o átomo C e N representa um valor, C e O também e assim sucessivamente, resultando em 36 valores. 
+
+
 \section{Bibliotecas e API's para SVM}
 
-Falando um pouco sobre as ferramentas necessárias para construir o algoritmo de machine learning e testar resultados.
+Falando um pouco sobre as ferramentas necessárias para construir o algoritmo de machine learning e avaliar resultados.
 
-\subsection{Python}% COPY PASTE MUDAR UM POUCO
+\subsection{Python}% Muito COPY PASTE MUDAR UM POUCO
 
-A linguagem Python3 é de alto nível, com ênfase em manter o código legível e fácil de entender, mesmo expressando programas em poucas linhas de código quando comparados a programas em outras linguagens.
-Foi idealizada e inicialmente implementada por Guido van Rossum, na década de 80. Hoje, sua licença é administrada pela Python Software Foundation, que permite seu uso inclusive para fins comerciais, e seu desenvolvimento é mantido por uma comunidade, uma vez que a linguagem é open-source.
+A linguagem Python, versão 3, é de alto nível, com ênfase em manter o código legível e fácil de entender,  expressando programas em poucas linhas de código quando é comparada a programas feitos em outras linguagens.
+
+Foi idealizada e inicialmente implementada por Guido van Rossum, na década de 80. Hoje, sua licença é administrada pela Python Software Foundation,\cite{pythonfundation} que permite seu uso inclusive para fins comerciais, e seu desenvolvimento é mantido por uma comunidade, uma vez que a linguagem é open-source.
+
 Python é uma linguagem de tipagem dinâmica, projetada para atender a diferentes paradigmas de programação como o imperativo, o orientado a objetos e o funcional. Seu interpretador pode ser instalado em diferentes sistemas operacionais para a execução dos programas escritos.
+
 É uma linguagem rica em bibliotecas próprias e também conta com diversas bibliotecas, módulos e frameworks desenvolvidos por terceiros, estendendo sua aplicação a diversas áreas, como desenvolvimento Web, análises científicas e cálculos numéricos, desenvolvimento de jogos etc.
+
 Entre suas inúmeras bibliotecas e ferramentas, existem várias que são voltadas para a mineração de dados, a aprendizagem de máquina e o processamento da linguagem natural.
-Isso fez com que a linguagem Python fosse escolhida para o desenvolvimento deste trabalho.
+
+Isso fez com que esta linguagem fosse escolhida para o desenvolvimento deste trabalho.
 
 \subsection{Pandas}
-É uma biblioteca, escrita em linguagem Python, para análise de dados em alta performance. Utiliza NumPy, um pacote padrão do Python para computar cálculos científico. 
+É uma biblioteca, escrita em linguagem Python, para análise de dados em alta performance. Utiliza NumPy, um pacote padrão do Python para computar cálculos científicos.
+
 A biblioteca Pandas fornece estrutura de dados novas e ferramentas para sua manipulação, provendo maior facilidade na execução das análises desejadas.
-Aqui, utilizou-se uma dessas estruturas, chamada de data-frame. Um data-frame é, uma estrutura tabular com indexação integrada, ou seja, basicamente é uma estrutura com linhas e colunas onde cada coluna tem um índice, associado a um conjunto de valores. Cada linha, portanto, tem vários valores, um deles referente a cada coluna indexada do data-frame.
+
+Aqui, utilizou-se uma dessas estruturas, chamada de data-frame. Um data-frame é, uma estrutura tabular com indexação integrada, ou seja, basicamente é uma estrutura com linhas e colunas onde cada coluna tem um índice, associado a um conjunto de valores. 
+
+Cada linha, portanto, tem vários valores, um deles referente a cada coluna indexada do data-frame.
 
 A biblioteca Pandas foi importante para a leitura e organização dos dados brutos da resenha, indexando cada uma delas pelo seu rótulo, e transformando o conjunto inicial em algo mais fácil de ser manipulado por outras funções.
 
 \subsection{Scikit-Learn}
 É um conjunto de ferramentas para mineração e análise de dados, constituindo uma mistura de pacotes como NumPy, SciPy e matplotlib. Os principais recursos do Scikit-Learn são algoritmos para:
 
-• Clusterização: processo de agrupamento de objetos com características similares
-• Regressão: para predição de atributos de valores contínuos para objetos a eles associados
-• Seleção de modelos: módulos para comparação e validação de parâmetros e modelos,
-tais como a validação cruzada, que será citada mais a frente
-• Redução de dimensionamento: ou diminuição do número de variáveis a serem
-consideradas para estudo
-• Pré-processamento: preparação dos dados, extração do vetor de características e
-normalização
-• Classificação: métodos de atribuição de um dado a um conjunto específico, tais como
-o SVM, que aqui será o foco na elaboração do estudo
+• Clusterização: processo de agrupamento de objetos com características similares.
 
-\section{Aplicando SVM}
-Para trabalho foi utilizado o kernel Gausiano do SVM, descrito como RBF (radial basis function) %referência, 
-por trazer o melhor resultado para prever a afinidade dos complexos.
-As informações presentes nas bases de testes e de treino foram armazenadas em um data-frame, onde a afinidade do complexo constituem os labels e o resto os parametros de entrada. 
+• Regressão: para predição de atributos de valores contínuos para objetos a eles associados.
 
-Para cada todos esses parâmetros de entrada deve propor uma saída (Label),  com isso o SVM irá realizar um treinamento utilizando uma análise de regressão utilizado o Kernel Gausiano como função principal.
-Após ser realizado o treinamento é hora de predizer um valor para afinidade de acordo com os parâmetros informados.
+• Seleção de modelos: módulos para comparação e validação de parâmetros e modelos,tais como a validação cruzada.
+
+• Redução de dimensionamento: ou diminuição do número de variáveis a serem consideradas para estudo.
+
+• Pré-processamento: preparação dos dados, extração do vetor de características e  normalização.
+
+• Classificação: métodos de atribuição de um dado a um conjunto específico, tais como o SVM, que aqui será o foco na elaboração do estudo.
+
+
 
 \chapter{Resultados}
-Uma comparação entre duas técnicas de Machine Learning utilizadas: Random Forest e SVM.
-Para ambos foram adotadas bases do PDBBIND no ano de 2007, ambas possuem os mesmos elementos tanto pra teste quanto para treino, e irão medir o índice de acertos da entre afinidade real e a afinidade prevista.
-Como métrica de desempenho será utilizado o RMSE (root-mean-square-error), ou seja erro médio quadrático.
+Neste capítulo serão apresentados os resultados deste trabalho ao aplicar a técnica de SVM, comparando com o trabalho relacionado de \citeauthor{ballester2010machine}, onde o mesmo utilizou a técnica de florestas aleatórias. 
+Em ambos os trabalhos foram adotadas bases do PDBBIND no ano de 2007, e utilizam os mesmos parâmetros para aplicar treinamento e teste de aprendizado de máquina.
+O objetivo de ambas as técnicas, é medir o índice de acertos entre afinidade real e a afinidade prevista pelo algoritmo.
+Como métrica de desempenho será utilizado o RMSE (root-mean-square-error), ou seja, o erro médio quadrático.
 
-\section{Resultados do Random Forest}
+\section{Resultados das Florestas Aleatórias}
 
-No trabalho proposto por \textbf{\cite{ballester2010machine}}, foi obtido os seguintes resultados:
-    \begin{figure}[!htb]
+No trabalho proposto por \textbf{\cite{ballester2010machine}}, foram obtidos os seguintes resultados:
+    \begin{figure}[h]
 	\centering\includegraphics[width=17cm]{imagens/treino_teste_ballester.png}
 	\caption{Treino E Teste com Random Forests}
 	\end{figure}
-Treino com 1105 amostras refinidas obteve um RMSE de 0.74.
-Teste com 195 amostras brutas obteve um RMSE de 1.58.
+\newline
+Treinamento utilizando 1105 amostras obteve um RMSE=0.74.
+\newline
+Teste utilizando 195 amostras obteve um RMSE=1.58.
 
 \section{Resultados do SVM}
 
 Ao utilizar svm como alternativa neste trabalho foi possível obter tais resultados:
-    \begin{figure}[!htb]
-	\centering\includegraphics[width=17cm]{imagens/teste_treino_meu.png}
+    \begin{figure}[h]
+	\centering
+	\includegraphics[width=17cm]{imagens/teste_treino_meu.png}
 	\caption{Treino E Teste com SVM}
 	\end{figure}
+\newline
 Treino com 1105 amostras refinidas obteve um RMSE de 0.45.
+\newline
 Teste com 195 amostras brutas obteve um RMSE de 1.97.
+
 \section{SVM X Random Forest}
+Ao utilizar a técnica de Random Forest nota-se que o RMSE é menor no teste, isso caracteriza menor índice de erros e consequentemente melhores resultados preditos.
 
-Ao utilizar a técnica de Random Forest o resultado de tal e tal é bom para tal coisa mas isso leva uma má impressão de outra coisa, que no SVM deixa o resultado mais evidente pois tal tal tal.
+Diferentemente no SVM, percebe-se que a previsão para de treinamento foi superior,rmse=0.45 (SVM) contra 0.74(florestas aleatórias) embora isso não seja tão relevante.
+Já que no teste ouve uma maior falha ao prever resultados, com 1.97 do svm contra 1.58 das florestas aleatórias.
 
-Ao aplicar SVM percebe-se que o valor de treinamento foi superior, com o índice de rmse sendo 0.45 do svm contra 0.74 das random forests pressuposto por \cite{ballester2010machine}, em compensação no teste ouve uma maior falha ao prever resultados, com 1.97 do svm contra 1.58 das random forests.
+Em resumo, o trabalho proposto por \citeauthor{ballester2010machine} é melhor para predição de valores de afinidade dos complexos do tipo proteína-ligante, e consequentemente, é melhor para poder aplicar uma função de pontuação em algum software futuro.
 
 \chapter{Conclusões}
 
 Colocar toda análise de cada capítulo aqui desde a introdução,fundamentação teórica,metodologia e resultados.
 
+Conforme foi visto ao longo deste trabalho, sempre irão existir avanços que possibilitem o uso de novas tecnologias, neste trabalho em especial, no docking molecular.
+Neste trabalho foi feito um estudo de diversas áreas; biomedicina, inteligência artificial, programação e estatística. Todas com a finalidade de otimizar a predição de afinidade dos complexos do tipo ligante-proteína.
+Não foi possível superar o algoritmo de florestas aleatórias de \citeauthor{ballester2010machine}, que possui um RMSE=1.58, com o algoritmo de SVM realizado neste trabalho que obteve RMSE=1.97.
+Em contra-ponto, foi explorado e testado diversos kernels e parâmetros do SVM, do qual serviu para aumentar o nível de conhecimento elucidado para elaboração de futuros estudos. 
+
+
 \section{Trabalhos Futuros}
 
-Falar na conclusão ou deixar separado.
-
-Apesar de ter todo esforço e evolução da área de inteligência artificial, muito falta para ser alcançado, a extração de informações ainda é pequena e bastante heterogênea, o que acarreta por consequência uma falha muito grande em prever resultados reais para aplicações do dia-a-dia.
-Possivelmente em um novo trabalho constará uma nova técnica, função ou métrica que permita uma melhora significativa para treinamento e teste para que o aprendizado de máquina preveja melhores resultados.
+Apesar de ter todo esforço e evolução da área de inteligência artificial, muito falta para ser alcançado, a extração de informações ainda é pequena e bastante heterogênea para um processamento avançado, o que traz por consequência uma falha muito grande em prever resultados reais para aplicações da biomedicina no dia-a-dia.
+Para um novo trabalho, deverá ser explorado outra técnica de aprendizado de máquina que apresente melhores resultados, como o uso de Redes Neurais profundas, contando com mais informações presentes em bases de dados mais recentes, para que dessa forma ocorra uma melhora significativa no treinamento e teste, prevendo melhores resultados.
 
 \bibliography{relatorio}
 \bibliographystyle{abnt}
